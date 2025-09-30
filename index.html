@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookLover - Sua livraria online favorita</title>
+    <title>Redação+ - Sua ferramenta de escrita inteligente</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Reset e configurações básicas */
@@ -573,6 +573,141 @@
             font-size: 0.9rem;
         }
 
+        /* Modal de Download */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .download-modal {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .modal-close:hover {
+            color: var(--accent);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-header i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .modal-platform {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .modal-subtitle {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .download-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .download-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .download-form input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .download-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .download-submit:hover {
+            background-color: var(--primary);
+        }
+
+        .download-success {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .download-success i {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+
+        .download-success h3 {
+            color: var(--success);
+            margin-bottom: 15px;
+        }
+
+        .download-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: var(--secondary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-link:hover {
+            background-color: var(--primary);
+        }
+
         /* Responsividade */
         @media (max-width: 992px) {
             .about-content {
@@ -655,11 +790,7 @@
                 <a href="#about" class="btn btn-accent">Saiba Mais</a>
             </div>
             <div class="hero-image">
-                <img src="https://static.wixstatic.com/media/199b90_8ac9bac5e90a41a79d6f6cb593ce7cca~mv2.jpg/v1/fill/w_1200,h_548,al_c/199b90_8ac9bac5e90a41a79d6f6cb593ce7cca~mv2.jpg" alt="Interface do BookLover">
-
-                <!-- https://static.wixstatic.com/media/199b90_8ac9bac5e90a41a79d6f6cb593ce7cca~mv2.jpg/v1/fill/w_1200,h_548,al_c/199b90_8ac9bac5e90a41a79d6f6cb593ce7cca~mv2.jpg -->
-
-                <!-- https://www.juliobattisti.com.br/artigos/linux/mandriva2006003_clip_image006.jpg -->
+                <img src="https://static.wixstatic.com/media/199b90_8ac9bac5e90a41a79d6f6cb593ce7cca~mv2.jpg/v1/fill/w_1200,h_548,al_c/199b90_8ac9bac5e90a41a79d6f6cb593ce7cca~mv2.jpg" alt="Interface do Redação+">
             </div>
         </div>
     </section>
@@ -783,17 +914,17 @@ um assistente de redação com tecnologia de IA da OpenAI, feito para acelerar s
                 <div class="platform">
                     <i class="fab fa-windows"></i>
                     <h3>Windows</h3>
-                    <a href="#" class="btn">Baixar</a>
+                    <a href="#" class="btn download-btn" data-platform="Windows">Baixar</a>
                 </div>
                 <div class="platform">
                     <i class="fab fa-linux"></i>
                     <h3>Linux</h3>
-                    <a href="#" class="btn">Baixar</a>
+                    <a href="#" class="btn download-btn" data-platform="Linux">Baixar</a>
                 </div>
                 <div class="platform">
-                    <i class="fab fa-android"></i>
+                    <i class="fab fa-apple"></i>
                     <h3>macOS</h3>
-                    <a href="#" class="btn">Baixar</a>
+                    <a href="#" class="btn download-btn" data-platform="macOS">Baixar</a>
                 </div>
             </div>
             
@@ -1007,6 +1138,45 @@ um assistente de redação com tecnologia de IA da OpenAI, feito para acelerar s
         </div>
     </footer>
 
+    <!-- Modal de Download -->
+    <div class="modal-overlay" id="downloadModal">
+        <div class="download-modal">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-header">
+                <i class="fas fa-download" id="modalIcon"></i>
+                <div class="modal-platform" id="modalPlatform">Windows</div>
+                <div class="modal-subtitle">Preencha seus dados para baixar</div>
+            </div>
+            
+            <form class="download-form" id="downloadForm">
+                <div class="form-group">
+                    <label for="userName">Nome Completo</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label for="userEmail">E-mail</label>
+                    <input type="email" id="userEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="userPhone">Telefone</label>
+                    <input type="tel" id="userPhone" required>
+                </div>
+                <button type="submit" class="download-submit">Confirmar e Baixar</button>
+            </form>
+            
+            <div class="download-success" id="downloadSuccess">
+                <i class="fas fa-check-circle"></i>
+                <h3>Download Confirmado!</h3>
+                <p>Obrigado por baixar o Redação+.</p>
+                <p>Seu download começará automaticamente em alguns segundos.</p>
+                <a href="#" class="download-link" id="directDownloadLink">Clique aqui se o download não iniciar</a>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Menu mobile
         document.querySelector('.mobile-menu').addEventListener('click', function() {
@@ -1056,6 +1226,109 @@ um assistente de redação com tecnologia de IA da OpenAI, feito para acelerar s
                     document.querySelector('.nav-links').classList.remove('active');
                 }
             });
+        });
+
+        // Modal de Download
+        const downloadModal = document.getElementById('downloadModal');
+        const modalClose = document.getElementById('modalClose');
+        const downloadForm = document.getElementById('downloadForm');
+        const downloadSuccess = document.getElementById('downloadSuccess');
+        const modalPlatform = document.getElementById('modalPlatform');
+        const modalIcon = document.getElementById('modalIcon');
+        const directDownloadLink = document.getElementById('directDownloadLink');
+
+        // Abrir modal quando clicar em qualquer botão de download
+        document.querySelectorAll('.download-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const platform = this.getAttribute('data-platform');
+                modalPlatform.textContent = platform;
+                
+                // Definir ícone baseado na plataforma
+                if (platform === 'Windows') {
+                    modalIcon.className = 'fab fa-windows';
+                } else if (platform === 'Linux') {
+                    modalIcon.className = 'fab fa-linux';
+                } else if (platform === 'macOS') {
+                    modalIcon.className = 'fab fa-apple';
+                }
+                
+                // Mostrar formulário e esconder mensagem de sucesso
+                downloadForm.style.display = 'block';
+                downloadSuccess.style.display = 'none';
+                
+                // Abrir modal
+                downloadModal.classList.add('active');
+            });
+        });
+
+        // Fechar modal
+        modalClose.addEventListener('click', function() {
+            downloadModal.classList.remove('active');
+        });
+
+        // Fechar modal ao clicar fora
+        downloadModal.addEventListener('click', function(e) {
+            if (e.target === downloadModal) {
+                downloadModal.classList.remove('active');
+            }
+        });
+
+        // Processar formulário de download
+        downloadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validar campos
+            const userName = document.getElementById('userName').value;
+            const userEmail = document.getElementById('userEmail').value;
+            const userPhone = document.getElementById('userPhone').value;
+            
+            if (!userName || !userEmail || !userPhone) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+            
+            // Simular envio de dados (em um caso real, enviaria para um servidor)
+            console.log('Dados do usuário:', {
+                nome: userName,
+                email: userEmail,
+                telefone: userPhone,
+                plataforma: modalPlatform.textContent
+            });
+            
+            // Simular download
+            const platform = modalPlatform.textContent;
+            let downloadUrl = '#';
+            
+            if (platform === 'Windows') {
+                downloadUrl = 'https://example.com/redacao-plus-windows.exe';
+            } else if (platform === 'Linux') {
+                downloadUrl = 'https://example.com/redacao-plus-linux.deb';
+            } else if (platform === 'macOS') {
+                downloadUrl = 'https://example.com/redacao-plus-macos.dmg';
+            }
+            
+            // Atualizar link de download direto
+            directDownloadLink.href = downloadUrl;
+            
+            // Mostrar mensagem de sucesso
+            downloadForm.style.display = 'none';
+            downloadSuccess.style.display = 'block';
+            
+            // Simular início automático do download após 2 segundos
+            setTimeout(() => {
+                // Em um caso real, iniciaria o download automaticamente
+                // window.location.href = downloadUrl;
+                
+                // Por enquanto, apenas um alerta
+                alert(`Download do Redação+ para ${platform} iniciado!`);
+                
+                // Fechar modal após 3 segundos
+                setTimeout(() => {
+                    downloadModal.classList.remove('active');
+                }, 3000);
+            }, 2000);
         });
     </script>
 </body>
