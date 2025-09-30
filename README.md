@@ -1,2 +1,2 @@
 # meuTexto
-Site par quem gosta de Redação
+Site para quem gosta de Redação...
