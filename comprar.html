@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprar BookLover - Seu Companheiro Literário</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset e configurações básicas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+            --text-light: #7f8c8d;
+            --success: #27ae60;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+        }
+
+        .btn-success:hover {
+            background-color: #219653;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Checkout */
+        .checkout-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #34495e 100%);
+            color: white;
+            padding: 150px 0 80px;
+            text-align: center;
+        }
+
+        .checkout-hero h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .checkout-hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--light);
+        }
+
+        /* Planos */
+        .plans {
+            background-color: white;
+        }
+
+        .plans-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .plan {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            position: relative;
+            border: 2px solid #eee;
+        }
+
+        .plan:hover {
+            transform: translateY(-10px);
+        }
+
+        .plan.popular {
+            border-color: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        .plan.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .plan-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .plan-name {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .plan-period {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .plan-features li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .plan-features li.disabled {
+            color: var(--text-light);
+        }
+
+        .plan-features li.disabled::before {
+            content: '✗';
+            color: var(--accent);
+        }
+
+        /* Checkout Form */
+        .checkout-form {
+            background-color: #f5f7fa;
+        }
+
+        .checkout-container {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .order-summary, .payment-form {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .summary-box, .payment-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .payment-method {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            border-color: var(--secondary);
+        }
+
+        .payment-method.selected {
+            border-color: var(--secondary);
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        .payment-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .payment-method.selected .payment-icon {
+            color: var(--secondary);
+        }
+
+        .security-note {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Garantia */
+        .guarantee {
+            background-color: white;
+            text-align: center;
+        }
+
+        .guarantee-box {
+            background-color: #f5f7fa;
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .guarantee-icon {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .checkout-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .plan.popular {
+                transform: none;
+            }
+            
+            .plan.popular:hover {
+                transform: translateY(-10px);
+            }
+        }
+
+
+a{text-decoration: none;}
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">Redação<span>+</span></a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="index.html#about">Sobre</a></li>
+                    <li><a href="index.html#functionality">Funcionalidades</a></li>
+                    <li><a href="index.html#download">Download</a></li>
+                    <li><a href="index.html#support">Suporte</a></li>
+                    <!-- <li><a href="checkout.html" class="btn" style="width: auto; padding: 8px 20px;">Comprar Agora</a></li> -->
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Checkout -->
+    <section class="checkout-hero">
+        <div class="container">
+            <h1>Adquira o Redação+ com todas as funcionalidades</h1>
+            <p>Transforme sua experiência de leitura e estudos com nossa versão premium</p>
+        </div>
+    </section>
+
+    <!-- Planos -->
+    <section class="plans">
+        <div class="container">
+            <h2>Escolha seu Plano</h2>
+            <div class="plans-container">
+                <div class="plan">
+                    <div class="plan-icon">
+                        <i class="fas fa-book-reader"></i>
+                    </div>
+                    <h3 class="plan-name">Básico</h3>
+                    <div class="plan-price">Início</div>
+                    <p class="plan-period">Teste de 6 mês</p>
+                    <ul class="plan-features">
+                        <li>A aplicação corrige textos, mas com limitações.</li>
+                        <li>Acompanhamento de leitura básico</li>
+                        <li>Modo noturno</li>
+                        <li class="disabled">Conversão para Novo Acordo</li>
+                        <li class="disabled">Correção gramatical</li>
+                        <li class="disabled">Assistente de Redação com IA</li>
+                        <li class="disabled">Exportação de relatórios</li>
+                        <li class="disabled">Sem Suporte</li>
+                    </ul>
+                    <a href="index.html#download" class="btn">Usar Versão Gratuita</a>
+                </div>
+
+                <div class="plan popular">
+                    <div class="popular-badge">Mais Escolhido</div>
+                    <div class="plan-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="plan-name">Plano Pro<br>Completo<br>(API/App)</h3>
+
+                    <div class="plan-price">R$ 2.000</div>
+                    <p class="plan-period">por mês</p>
+                    <ul class="plan-features">
+                        <li>A API ou a aplicação corrige qualquer texto de até 500 páginas / dia</li>
+                        <li>Acompanhamento avançado de leitura</li>
+                        <li>Modo noturno + 2</li>
+                        <li>Conversão para Novo Acordo</li>
+                        <li>Correção gramatical</li>
+                        <li>Assistente de Redação com IA</li>
+                        <li>Recomendações inteligentes</li>
+                        <li>Estatísticas detalhadas e insights</li>
+                        <li>Exportação de relatórios em PDF</li>
+                        <li>Suporte prioritário 24/7</li>
+                    </ul>
+                    <a href="#payment" class="btn btn-accent select-plan" data-plan="Pro" data-price="R$ 19,90">Selecionar Plano Pro</a>
+                </div>
+
+                <div class="plan">
+                    <div class="plan-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3 class="plan-name">Estudante<br>Menos páginas</h3>
+                    <div class="plan-price">R$ 50</div>
+                    <p class="plan-period">por mês</p>
+                    <ul class="plan-features">
+                        <li>A aplicação corrige textos com até 5 páginas / dia.</li>
+                        <li>Acompanhamento avançado de leitura</li>
+                        <li>Modo noturno + 2</li>
+                        <li>Conversão para Novo Acordo</li>
+                        <li>Correção gramatical</li>
+                        <li>Assistente de Redação com IA</li>
+                        <li>Recomendações inteligentes</li>
+                        <li>Estatísticas detalhadas e insights</li>
+                        <li>Exportação de relatórios em PDF</li>
+                        <li>Suporte prioritário 24/7</li>
+                    </ul>
+
+                    <a href="#payment" class="btn select-plan" data-plan="Estudante" data-price="R$ 9,90">Selecionar Plano Estudante</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Form -->
+    <section class="checkout-form" id="payment">
+        <div class="container">
+            <h2>Finalizar Compra</h2>
+            <div class="checkout-container">
+                <div class="order-summary">
+                    <div class="summary-box">
+                        <h3>Resumo do Pedido</h3>
+                        <div class="summary-item">
+                            <span id="plan-name">BookLover Pro (Mensal)</span>
+                            <span id="plan-price">R$ 19,90</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Taxas</span>
+                            <span>R$ 0,00</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <span id="total-price">R$ 19,90</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-box">
+                        <h3>O que você está adquirindo</h3>
+                        <ul class="plan-features">
+                            <li>Acesso ilimitado a todas as funcionalidades</li>
+                            <li>Atualizações gratuitas durante a assinatura</li>
+                            <li>Suporte técnico prioritário</li>
+                            <li>Cancelamento a qualquer momento</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="payment-form">
+                    <div class="payment-box">
+                        <h3>Informações Pessoais</h3>
+                        <form id="checkoutForm">
+                            <div class="form-group">
+                                <label for="name">Nome Completo</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Telefone</label>
+                                <input type="tel" id="phone" required>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="payment-box">
+                        <h3>Método de Pagamento</h3>
+                        <div class="payment-methods">
+                            <div class="payment-method selected" id="creditCard">
+                                <div class="payment-icon">
+                                    <i class="far fa-credit-card"></i>
+                                </div>
+                                <div>Cartão de Crédito</div>
+                            </div>
+                            <div class="payment-method" id="pix">
+                                <div class="payment-icon">
+                                    <i class="fas fa-qrcode"></i>
+                                </div>
+                                <div><a href='https://www.itau.com.br/pix/pix-no-whatsapp?utm_source=google&utm_medium=video&utm_campaign=af-midia_paga-institucional-trafego-bundle_pix&utm_content=google-2nd-cpc-all_devices-mar_aberto-search_bundle_pix-responsivo-bundle_pix_generico_pj-af8146680578&gad_source=1&gad_campaignid=23029599769&gbraid=0AAAAADjN6oykuj75vw0tp2A03Xalfalll&gclid=Cj0KCQjw3OjGBhDYARIsADd-uX55FJy8PhryA0v6wkrZnJs2ERIX9Pqj5wppGhUhd1Dje6_auGFojHYaAj1bEALw_wcB' target="_blank">PIX</a></div>
+                            </div>
+                            <div class="payment-method" id="paypal">
+                                <div class="payment-icon">
+                                    <i class="fab fa-paypal"></i>
+                                </div>
+                                <div><a href='https://www.paypal.com/signin?returnUri=https%3A%2F%2Fwww.paypal.com%2Fbr%2Fcshelp%2Ftopic%2Fhelp_account_personal' target="_blank">PayPal</a></div>
+                            </div>
+                        </div>
+
+                        <div id="creditCardForm">
+                            <div class="form-group">
+                                <label for="cardNumber">Número do Cartão</label>
+                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="expiryDate">Validade</label>
+                                    <input type="text" id="expiryDate" placeholder="MM/AA" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" placeholder="123" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cardName">Nome no Cartão</label>
+                                <input type="text" id="cardName" required>
+                            </div>
+                        </div>
+
+                        <div id="pixForm" style="display: none;">
+                            <p>Após confirmar o pedido, você receberá um código PIX para pagamento.</p>
+                            <p>O acesso será liberado assim que o pagamento for confirmado.</p>
+                        </div>
+
+                        <div id="paypalForm" style="display: none;">
+                            <p>Você será redirecionado para o PayPal para finalizar o pagamento.</p>
+                        </div>
+
+                        <div class="security-note">
+                            <i class="fas fa-lock"></i>
+                            <span>Suas informações estão seguras e criptografadas</span>
+                        </div>
+
+                        <button type="submit" form="checkoutForm" class="btn btn-success" style="margin-top: 20px;" id="finalize-button">
+                            Finalizar Compra - R$ 19,90
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Garantia -->
+    <section class="guarantee">
+        <div class="container">
+            <div class="guarantee-box">
+                <div class="guarantee-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2>Garantia de 30 Dias</h2>
+                <p>Se por qualquer motivo você não ficar satisfeito com o BookLover Pro, devolvemos 100% do seu dinheiro dentro de 30 dias. Sem perguntas, sem burocracia.</p>
+                <p>Estamos confiantes de que o BookLover vai transformar sua experiência de leitura e estudos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BookLover</h3>
+                    <p>Seu companheiro literário para organizar, descobrir e aproveitar cada página.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="index.html#about">Sobre</a></li>
+                        <li><a href="index.html#functionality">Funcionalidades</a></li>
+                        <li><a href="index.html#download">Download</a></li>
+                        <li><a href="index.html#support">Suporte</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Política de Reembolso</a></li>
+                        <li><a href="#">Contrato de Licença</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> contato@booklover.app</li>
+                        <li><i class="fas fa-globe"></i> www.booklover.app</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BookLover. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu mobile
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Função para atualizar o resumo do pedido
+        function updateOrderSummary(planName, planPrice) {
+            document.getElementById('plan-name').textContent = `BookLover ${planName} (Mensal)`;
+            document.getElementById('plan-price').textContent = planPrice;
+            document.getElementById('total-price').textContent = planPrice;
+            
+            // Atualiza o botão de finalizar compra
+            const finalizeButton = document.getElementById('finalize-button');
+            finalizeButton.textContent = `Finalizar Compra - ${planPrice}`;
+            
+            // Rola até a seção de pagamento
+            document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Seleção de plano - CORREÇÃO APLICADA AQUI
+        document.querySelectorAll('.select-plan').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const planName = this.getAttribute('data-plan');
+                const planPrice = this.getAttribute('data-price');
+                
+                updateOrderSummary(planName, planPrice);
+            });
+        });
+
+        // Seleção de método de pagamento
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', function() {
+                // Remove a seleção de todos
+                document.querySelectorAll('.payment-method').forEach(m => {
+                    m.classList.remove('selected');
+                });
+                
+                // Adiciona seleção ao clicado
+                this.classList.add('selected');
+                
+                // Mostra o formulário correspondente
+                const methodId = this.id;
+                document.getElementById('creditCardForm').style.display = 'none';
+                document.getElementById('pixForm').style.display = 'none';
+                document.getElementById('paypalForm').style.display = 'none';
+                
+                if (methodId === 'creditCard') {
+                    document.getElementById('creditCardForm').style.display = 'block';
+                } else if (methodId === 'pix') {
+                    document.getElementById('pixForm').style.display = 'block';
+                } else if (methodId === 'paypal') {
+                    document.getElementById('paypalForm').style.display = 'block';
+                }
+            });
+        });
+
+        // Formatação do número do cartão
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+            e.target.value = value;
+        });
+
+        // Formatação da data de validade
+        document.getElementById('expiryDate').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        // Formulário de checkout
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulação de processamento
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processando...';
+            submitBtn.disabled = true;
+            
+            // Simula um processamento de 2 segundos
+            setTimeout(() => {
+                alert('Pagamento processado com sucesso! Obrigado por adquirir o BookLover Pro.');
+                // window.location.href = 'success.html'; // Página de sucesso
+            }, 2000);
+        });
+
+        // Inicialização - garantir que o plano Pro esteja selecionado por padrão
+        document.addEventListener('DOMContentLoaded', function() {
+            updateOrderSummary('Pro', 'R$ 19,90');
+        });
+    </script>
+</body>
+</html>

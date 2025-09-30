@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookLover - Seu companheiro literário</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset e configurações básicas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+            --text-light: #7f8c8d;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background-color: #c0392b;
+        }
+
+        /* Header e Navegação */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #34495e 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--light);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            max-width: 800px;
+            margin: 50px auto 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-image img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Sobre o App */
+        .about {
+            background-color: white;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            margin-bottom: 15px;
+        }
+
+        /* Funcionalidades */
+        .functionality {
+            background-color: #f5f7fa;
+        }
+
+        .functionality-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .func-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .func-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            flex-shrink: 0;
+        }
+
+        .func-content h3 {
+            margin-bottom: 10px;
+        }
+
+        /* Download */
+        .download {
+            background-color: white;
+            text-align: center;
+        }
+
+        .platforms {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 50px 0;
+        }
+
+        .platform {
+            background-color: #f5f7fa;
+            padding: 30px;
+            border-radius: 10px;
+            width: 200px;
+            transition: transform 0.3s ease;
+        }
+
+        .platform:hover {
+            transform: translateY(-10px);
+        }
+
+        .platform i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .platform h3 {
+            margin-bottom: 15px;
+        }
+
+        .requirements {
+            background-color: #f5f7fa;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .requirements h3 {
+            text-align: center;
+        }
+
+        .requirements ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .requirements li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .requirements li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* Suporte */
+        .support {
+            background-color: #f5f7fa;
+        }
+
+        .support-content {
+            display: flex;
+            gap: 50px;
+        }
+
+        .faq, .contact {
+            flex: 1;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-question {
+            font-weight: bold;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            display: none;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Confiança */
+        .trust {
+            background-color: white;
+        }
+
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .screenshot {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .screenshot img {
+            width: 100%;
+            display: block;
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial {
+            background-color: #f5f7fa;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .policies {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .policies a {
+            color: var(--secondary);
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .policies a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .support-content {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Redação<span>+</span></a>
+                <ul class="nav-links">
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#functionality">Funcionalidades</a></li>
+                    <li><a href="#download">Download</a></li>
+                    <li><a href="comprar.html">Comprar</a></li>
+                    <li><a href="#support">Suporte</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Redação+</h1>
+            <p>O conhecimento é o mapa...</p>
+            <p>Cada dúvida resolvida é um portal para novas possibilidades.</p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn">Baixar Agora</a>
+                <a href="#about" class="btn btn-accent">Saiba Mais</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://static.wixstatic.com/media/199b90_8ac9bac5e90a41a79d6f6cb593ce7cca~mv2.jpg/v1/fill/w_1200,h_548,al_c/199b90_8ac9bac5e90a41a79d6f6cb593ce7cca~mv2.jpg" alt="Interface do BookLover">
+
+                <!-- https://static.wixstatic.com/media/199b90_8ac9bac5e90a41a79d6f6cb593ce7cca~mv2.jpg/v1/fill/w_1200,h_548,al_c/199b90_8ac9bac5e90a41a79d6f6cb593ce7cca~mv2.jpg -->
+
+                <!-- https://www.juliobattisti.com.br/artigos/linux/mandriva2006003_clip_image006.jpg -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre o App -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>Sobre o Redação+</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>O Redação+ nasceu da paixão pela resolução rápida de problemas complexos e da necessidade de uma ferramenta que realmente entenda os leitores e redatores modernos.</p>
+
+                    <p>Em um mundo com tantas distrações, queremos ajudar você a manter o foco na sua jornada no universo dos textos.</p>
+                    <p>Nosso aplicativo resolve o problema da organização de leituras, oferecendo uma maneira intuitiva de catalogar seus livros, apostilas e... pensamentos, acompanhar seu progresso e descobrir novas técnicas baseadas em seu gosto pessoal.</p>
+                    <h3>Por que escolher o Redação+?</h3>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-user-shield"></i>
+                            <h3>Privacidade Garantida</h3>
+                            <p>Seus dados de leitura são apenas seus. Não vendemos suas informações.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-sync-alt"></i>
+                            <h3>Sincronização Multiplataforma</h3>
+                            <p>Acesse sua biblioteca de qualquer dispositivo, a qualquer momento.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-heart"></i>
+                            <h3>Feito por Leitores</h3>
+                            <p>Desenvolvido por e para pessoas que amam livros.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://www.verx.com.br/wp-content/uploads/2024/05/IMG-Software-e-Aplicativo-e-a-mesma-coisa.webp" alt="Funcionalidades do Redação+">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Funcionalidades -->
+    <section class="functionality" id="functionality">
+        <div class="container">
+            <h2>Funcionalidades Principais</h2>
+            <div class="functionality-grid">
+                <div class="func-card">
+                    <div class="func-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="func-content">
+
+                        <h3>Organize seu pensamento</h3>
+                        <p>Uma aplicação que ajuda no processo de busca por refências e de autores é mais do que útil.</p>
+
+                        
+                    </div>
+                </div>
+                <div class="func-card">
+                    <div class="func-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+
+                    <div class="func-content">
+                        <h3>Acompanhamento de Leitura</h3>
+                        <p>Registre seu progresso, defina metas de leitura e visualize estatísticas detalhadas sobre seus hábitos literários.</p>
+                    </div>
+                </div>
+                <div class="func-card">
+                    <div class="func-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="func-content">
+
+                        <h3>Conversão para o Novo Acordo</h3>
+                        <p>Para redatores ocupados.<br>Facilitem suas vidas com o Conversor para o Novo Acordo Ortográfico.<br>Escrever em conformidade com o Novo Acordo Ortográfico de 1990 já não precisa ser um desafio.
+Nosso aplicativo foi criado especialmente para redatores, jornalistas, professores e produtores de conteúdo que precisam entregar textos impecáveis em português do Brasil.</p>
+
+
+                        
+                    </div>
+                </div>
+                <div class="func-card">
+                    <div class="func-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="func-content">
+                        <h3>Correção Gramatical</h3>
+                        <p>A correção de um texto é um processo indispensável na vida de um redator.<br><br>Economize horas de revisão manual. Deixe seu texto impecável com a Correção Gramatical Automática da Redação+.</p>
+                    </div>
+                </div>
+                <div class="func-card">
+                    <div class="func-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="func-content">
+                        <h3>Assistente de Redação com IA</h3>
+                        <p>Se você vive na correria de prazos e revisões, chegou a hora de ganhar um parceiro de confiança:
+um assistente de redação com tecnologia de IA da OpenAI, feito para acelerar seu fluxo de trabalho e elevar a qualidade dos seus textos.</p>
+                    </div>
+                </div>
+                <div class="func-card">
+                    <div class="func-icon">
+                        <i class="fas fa-cloud-download-alt"></i>
+                    </div>
+                    <div class="func-content">
+                        <h3>Relatórios em PDF</h3>
+                        <p>Nosso aplicativo não apenas corrige e aprimora seus textos, mas também entrega relatórios completos em PDF, prontos para serem organizados e acessados para posterior estudo e impressão.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download -->
+    <section class="download" id="download">
+        <div class="container">
+            <h2>Download</h2>
+            <p>Baixe o Redação+ agora e comece a transformar sua experiência de leitura</p>
+            
+            <div class="platforms">
+                <div class="platform">
+                    <i class="fab fa-windows"></i>
+                    <h3>Windows</h3>
+                    <a href="#" class="btn">Baixar</a>
+                </div>
+                <div class="platform">
+                    <i class="fab fa-linux"></i>
+                    <h3>Linux</h3>
+                    <a href="#" class="btn">Baixar</a>
+                </div>
+                <div class="platform">
+                    <i class="fab fa-android"></i>
+                    <h3>macOS</h3>
+                    <a href="#" class="btn">Baixar</a>
+                </div>
+            </div>
+            
+            <h3>Instalação</h3>
+            <p>O processo de instalação é simples e rápido:</p>
+            <ol style="max-width: 600px; margin: 20px auto; text-align: left;">
+                <li>Baixe o instalador para seu computador</li>
+                <li>Execute o arquivo baixado</li>
+                <li>Siga as instruções na tela</li>
+                <li>Inicie o Redação+ e assine  plano Pro</li>
+            </ol>
+            
+            <div class="requirements">
+                <h3>Requisitos Mínimos</h3>
+                <ul>
+                    <li><strong>Windows:</strong> Windows 10 ou superior, 2GB de RAM, 100MB de espaço livre</li>
+                    <li><strong>Linux:</strong> Ubuntu 18.04 ou similar, 2GB de RAM, 100MB de espaço livre</li>
+                    <li><strong>macOS:</strong> macOS 8.0 ou superior, 100MB de espaço livre</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Suporte -->
+    <section class="support" id="support">
+        <div class="container">
+            <h2>Suporte e Ajuda</h2>
+            <div class="support-content">
+                <div class="faq">
+                    <h3>Perguntas Frequentes</h3>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Como faço para importar minha biblioteca existente?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Você pode importar sua biblioteca a partir de arquivos CSV, Goodreads ou através do scanner de código de barras no aplicativo móvel.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>O Redação+ é gratuito?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Você pode testar a versão básica do Redação+. Oferecemos uma assinatura premium com todas as funcionalidades para pessoas que precisam de correções mais completas.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Meus dados estão seguros?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Absolutamente. Priorizamos a segurança e privacidade dos seus dados. As informações pessoais são criptografadas e não compartilhamos dados pessoais, nem pedimos para cadastrar cartões.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Posso usar o Redação+ offline?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Não, você vai precisar logar na plataforma do Redação+ para adquirir suas permissões, embora algumas funcionalidades básicas sejam offline. Confira no manual.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact">
+                    <h3>Entre em Contato</h3>
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Nome</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Assunto</label>
+                                <input type="text" id="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Mensagem</label>
+                                <textarea id="message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn">Enviar Mensagem</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Confiança e Credibilidade -->
+    <section class="trust">
+        <div class="container">
+            <h2>Confiança e Credibilidade</h2>
+            
+            <h3>Capturas de Tela</h3>
+            <div class="screenshots">
+                <div class="screenshot">
+                    <img src="https://s2-techtudo.glbimg.com/GeCU6PsxTNmDlyPznQjkfuq2wO8=/0x0:1920x878/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2025/b/3/iVZ3laRwqJDMoVVxBlXA/imagem-1.png" alt="Visualização da Biblioteca">
+                </div>
+                <div class="screenshot">
+                    <img src="https://i.pinimg.com/originals/e8/e2/5a/e8e25a74c3fdd5c82d836f7f074becb9.jpg" alt="Acompanhamento de Leitura">
+                </div>
+                <div class="screenshot">
+                    <img src="https://livrelinux.wordpress.com/wp-content/uploads/2015/07/manjaro-linux_8.png" alt="Detalhes do Livro">
+                </div>
+                <div class="screenshot">
+                    <img src="https://img.freepik.com/fotos-gratis/mulheres-de-tiro-medio-segurando-livros-na-praia_23-2149313090.jpg?semt=ais_hybrid&w=740&q=80" alt="Comunidade">
+                </div>
+            </div>
+            
+            <h3>O que nossos usuários dizem</h3>
+            <div class="testimonials">
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "Finalmente um aplicativo que entende as necessidades de um leitor e redator ávido. A interface é simples e direta e as funcionalidades são exatamente o que eu precisava."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AM</div>
+                        <div>
+                            <strong>Ana Mendes</strong>
+                            <p>Leitora ávida</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "Como escritor, recomendo o Redação+ para todos os meus colegas de profissão. É a ferramenta perfeita para organizar e acompanhar meus textos."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">CS</div>
+                        <div>
+                            <strong>Carlos Silva</strong>
+                            <p>Escritor</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "Ganhei dias preciosos na revisão da minha tese.<br>Corrige automaticamente: erros de acentuação, de concordância, de regência, pontuação.<br>Ideal para Teses de Doutorado, Artigos científicos, Enem e todos os que precisam de um texto adequado."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DF</div>
+                        <div>
+                            <strong>Dejanira Ferreira</strong>
+                            <p>Doutoranda</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="policies">
+                <a href="#">Política de Privacidade</a>
+                <a href="#">Termos de Uso</a>
+                <p>Redação+ é um projeto open source. Contribua no <a href="https://github.com/login?client_id=Iv1.558507eb9b186639&return_to=%2Flogin%2Foauth%2Fauthorize%3Fclient_id%3DIv1.558507eb9b186639%26redirect_uri%3Dhttps%253A%252F%252Fdashboard.render.com%252Foauth%252Fgithub%26state%3D5c497b5b-dfdd-4bf2-9935-670d0cbafe0e" target="_blank">GitHub.</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Redação+</h3>
+                    <p>Seu suporte acadêmico para buscar, organizar e acelerar os processos infindáveis da composição textual.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="#functionality">Funcionalidades</a></li>
+                        <li><a href="#download">Download</a></li>
+                        <li><a href="#support">Suporte</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Recursos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Documentação</a></li>
+                        <li><a href="#">Tutoriais</a></li>
+                        <li><a href="#">Roadmap</a></li>
+                        <li><a href="#">Changelog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> contato@reda_ao_mais.app</li>
+                        <li><i class="fas fa-globe"></i> www.reda_ao_mais.app</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Redação+  Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu mobile
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.classList.toggle('active');
+                
+                const icon = question.querySelector('i');
+                if (answer.classList.contains('active')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Obrigado por entrar em contato! Responderemos em breve.');
+            this.reset();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
